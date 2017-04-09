@@ -103,7 +103,7 @@
                     <textarea class="form-control" maxlength="10000" id="words" name="words" rows="10" required></textarea>
                 </div>
 
-                <button type="submit" id="submit" name="submit" class="btn btn-default">Submit</button>
+                <button type="button" id="submit" name="submit" class="btn btn-default">Submit</button>
             </form>                         <!-- Submit form END-->
                         
 
@@ -251,31 +251,37 @@
    <script src="js/main.js"></script>
    
    <script>
-    $("#theForm").submit(function(){
+    $("#submit").click(function(){
       var w = $("#words").val();
-
+      var username = "ce88dc85-20b8-43c3-883f-32565f3035d3";
+      var password = "PYmpMFOVaKLO";
       $.ajax({
-        type: "GET",
+        type: "POST",
         url: "https://gateway.watsonplatform.net/natural-language-understanding/api/v1/analyze?version=2017-02-27",
-        dataType: 'json',
-        async: false,
-        username: "0283cb2f-c798-4403-9ad6-f5a829e90107",
-        password: "1DF15bZZfwng",
-        data: {
+        // url: "/analyze",
+        datatype: "application/json",
+        headers: {
+          "Authorization":"Basic " + btoa(username + ":" + password),
+          "Content-Type": "application/json"
+        },
+        // username: "ce88dc85-20b8-43c3-883f-32565f3035d3",
+        // password: "PYmpMFOVaKLO",
+        data: JSON.stringify({
           "text": w,
           "features": {
-            "entities": {
-            "emotion": true,
-            "sentiment": true,
-            "limit": 2
-          },
-          "keywords": {
-            "emotion": true,
-            "sentiment": true,
-            "limit": 2
-          } 
+          //   "entities": {
+          //   "emotion": true,
+          //   "sentiment": true,
+          //   "limit": 2
+          // },
+          "emotion": {},
+          // "keywords": {
+          //   "emotion": true,
+          //   "sentiment": true,
+          //   "limit": 2
+          // } 
         }
-      } 
+      }) 
     }).done(
 
     function(data) {
