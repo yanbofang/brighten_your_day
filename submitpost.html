@@ -1,24 +1,3 @@
-<?php
-
-include_once "global.php";
-
-// add a new blog post
-
-if (isset($_POST['submit'])) {
-    $words = trim($_POST['words']);
-    $title = $_POST['title'];
-    $query = "INSERT INTO Blog (words, date_post, title, mood) VALUES ";
-    if ($stmt = $conn->prepare($query." (?, NOW(), ?, ".'happy'.")")) {
-        echo "hiigeognesngoghw";
-        $stmt->bind_param('ss', $words, $title);
-        $stmt->execute();
-        $postid = $stmt->insert_id;
-        $stmt->close();
-    }
-}
-
-?>
-
 <!DOCTYPE html>
 <!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
@@ -26,7 +5,7 @@ if (isset($_POST['submit'])) {
 <!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
 <head>
     
-   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
    <!--- Basic Page Needs
    ================================================== -->
@@ -113,18 +92,18 @@ if (isset($_POST['submit'])) {
 
         <div id="main" class="eight columns">
 
-            <form method="post">                                <!-- Submit form start-->
+            <form id="theForm" method="post">                                <!-- Submit form start-->
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="<?php if (isset($_POST['title'])) echo $_POST['title'];?>" required>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Title" required>
                 </div>
 
                 <div class="form-group">
                     <label for="words">Text</label>
-                    <textarea class="form-control" maxlength="10000" id="words" name="words" rows="10" required><?php if (isset($_POST['words'])) echo $_POST['words'];?></textarea>
+                    <textarea class="form-control" maxlength="10000" id="words" name="words" rows="10" required></textarea>
                 </div>
 
-                <button type="submit" id="submit" name="submit" class="btn btn-default">Submit</button>
+                <button type="button" id="submit" name="submit" class="btn btn-default">Submit</button>
             </form>                         <!-- Submit form END-->
                         
 
@@ -272,29 +251,47 @@ if (isset($_POST['submit'])) {
    <script src="js/main.js"></script>
    
    <script>
-   $("#theForm").submit(function() {
-       type: "GET",
-      url: "index1.php",
-      dataType: 'json',
-      async: false,
-      username: "0283cb2f-c798-4403-9ad6-f5a829e90107",
-      password: "1DF15bZZfwng",
-      data: {"text": document.getElementById("words"), "features": {
-      "entities": {
-      "emotion": true,
-      "sentiment": true,
-      "limit": 2
-    },
-    "keywords": {
-      "emotion": true,
-      "sentiment": true,
-      "limit": 2
-    } 
-   },
-      success: function (){
-      alert('Thanks for your comment!'); 
-  }
-   }
+    $("#submit").click(function(){
+      var w = $("#words").val();
+      var username = "ce88dc85-20b8-43c3-883f-32565f3035d3";
+      var password = "PYmpMFOVaKLO";
+      $.ajax({
+        type: "POST",
+        url: "https://gateway.watsonplatform.net/natural-language-understanding/api/v1/analyze?version=2017-02-27",
+        // url: "/analyze",
+        datatype: "application/json",
+        headers: {
+          "Authorization":"Basic " + btoa(username + ":" + password),
+          "Content-Type": "application/json"
+        },
+        // username: "ce88dc85-20b8-43c3-883f-32565f3035d3",
+        // password: "PYmpMFOVaKLO",
+        data: JSON.stringify({
+          "text": w,
+          "features": {
+          //   "entities": {
+          //   "emotion": true,
+          //   "sentiment": true,
+          //   "limit": 2
+          // },
+          "emotion": {},
+          // "keywords": {
+          //   "emotion": true,
+          //   "sentiment": true,
+          //   "limit": 2
+          // } 
+        }
+      }) 
+    }).done(
+
+    function(data) {
+      console.log(data);
+    }
+
+    );
+
+  });
+
    
    </script>
 
