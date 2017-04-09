@@ -1,55 +1,36 @@
-<?php
-
-include_once "global.php";
-
-// add a new blog post
-
-if (isset($_POST['submit'])) {
-	$words = trim($_POST['words']);
-	$title = $_POST['title'];
-	$query = "INSERT INTO Blog (words, date_post, title, mood) VALUES ";
-	if ($stmt = $conn->prepare($query." (?, NOW(), ?, ".'happy'.")")) {
-		echo "hiigeognesngoghw";
-		$stmt->bind_param('ss', $words, $title);
-		$stmt->execute();
-		$postid = $stmt->insert_id;
-		$stmt->close();
-	}
-}
-
-?>
-
 <!DOCTYPE html>
 <!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
 <!--[if IE 9 ]><html class="no-js ie ie9" lang="en"> <![endif]-->
 <!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
 <head>
+    
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
    <!--- Basic Page Needs
    ================================================== -->
    <meta charset="utf-8">
-	<title>Keep It Simple.</title>
-	<meta name="description" content="">  
-	<meta name="author" content="">
+    <title>Keep It Simple.</title>
+    <meta name="description" content="">  
+    <meta name="author" content="">
 
-	<!-- mobile specific metas
+    <!-- mobile specific metas
    ================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
    <!-- CSS
     ================================================== -->
    <link rel="stylesheet" href="css/default.css">
-	<link rel="stylesheet" href="css/layout.css">  
-	<link rel="stylesheet" href="css/media-queries.css"> 
+    <link rel="stylesheet" href="css/layout.css">  
+    <link rel="stylesheet" href="css/media-queries.css"> 
 
    <!-- Script
    ================================================== -->
-	<script src="js/modernizr.js"></script>
+    <script src="js/modernizr.js"></script>
 
    <!-- Favicons
-	================================================== -->
-	<link rel="shortcut icon" href="favicon.png" >
+    ================================================== -->
+    <link rel="shortcut icon" href="favicon.png" >
 
 </head>
 
@@ -59,47 +40,47 @@ if (isset($_POST['submit'])) {
    ================================================== -->
    <header id="top">
 
-   	<div class="row">
+    <div class="row">
 
-   		<div class="header-content twelve columns">
+        <div class="header-content twelve columns">
 
-		      <h1 id="logo-text"><a href="index.html" title="">Brighten</a></h1>
-				<p id="intro">Put your awesome slogan here...</p>
+              <h1 id="logo-text"><a href="index.html" title="">Brighten</a></h1>
+                <p id="intro">Put your awesome slogan here...</p>
 
-			</div>			
+            </div>          
 
-	   </div>
+       </div>
 
-	   <nav id="nav-wrap"> 
+       <nav id="nav-wrap"> 
 
-	   	<a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show Menu</a>
-		   <a class="mobile-btn" href="#" title="Hide navigation">Hide Menu</a>
+        <a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show Menu</a>
+           <a class="mobile-btn" href="#" title="Hide navigation">Hide Menu</a>
 
-	   	<div class="row">    		            
+        <div class="row">                       
 
-			   	<ul id="nav" class="nav">
-			      	<li class="current"><a href="index.html">Home</a></li>
-			      	<li class="has-children"><a href="#">Dropdown</a>
-	                  <ul>
-	                     <li><a href="#">Submenu 01</a></li>
-	                     <li><a href="#">Submenu 02</a></li>
-	                     <li><a href="#">Submenu 03</a></li>
-	                  </ul>
-	               </li>
-	               <li><a href="demo.html">Demo</a></li>	
-	               <li><a href="archives.html">Archives</a></li>
-			      	<li class="has-children"><a href="single.html">Blog</a>
-							<ul>
-	                     <li><a href="blog.html">Blog Entries</a></li>
-	                     <li><a href="single.html">Single Blog</a></li>	                     
-	                  </ul>
-			      	</li>		      	
-			      	<li><a href="page.html">Page</a></li>
-			   	</ul> <!-- end #nav -->			   	 
+                <ul id="nav" class="nav">
+                    <li class="current"><a href="index.html">Home</a></li>
+                    <li class="has-children"><a href="#">Dropdown</a>
+                      <ul>
+                         <li><a href="#">Submenu 01</a></li>
+                         <li><a href="#">Submenu 02</a></li>
+                         <li><a href="#">Submenu 03</a></li>
+                      </ul>
+                   </li>
+                   <li><a href="demo.html">Demo</a></li>    
+                   <li><a href="archives.html">Archives</a></li>
+                    <li class="has-children"><a href="single.html">Blog</a>
+                            <ul>
+                         <li><a href="blog.html">Blog Entries</a></li>
+                         <li><a href="single.html">Single Blog</a></li>                      
+                      </ul>
+                    </li>               
+                    <li><a href="page.html">Page</a></li>
+                </ul> <!-- end #nav -->              
 
-	   	</div> 
+        </div> 
 
-	   </nav> <!-- end #nav-wrap --> 	     
+       </nav> <!-- end #nav-wrap -->         
 
    </header> <!-- Header End -->
 
@@ -107,30 +88,30 @@ if (isset($_POST['submit'])) {
    ================================================== -->
    <div id="content-wrap">
 
-   	<div class="row">
+    <div class="row">
 
-   		<div id="main" class="eight columns">
+        <div id="main" class="eight columns">
 
-   			<form method="post">								<!-- Submit form start-->
-   				<div class="form-group">
-   					<label for="title">Title</label>
-   					<input type="text" class="form-control" id="title" name="title" placeholder="Title" value="<?php if (isset($_POST['title'])) echo $_POST['title'];?>" required>
-   				</div>
+            <form id="theForm" method="post">                                <!-- Submit form start-->
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Title" required>
+                </div>
 
-   				<div class="form-group">
-   					<label for="words">Text</label>
-   					<textarea class="form-control" maxlength="10000" id="words" name="words" rows="10" required><?php if (isset($_POST['words'])) echo $_POST['words'];?></textarea>
-   				</div>
+                <div class="form-group">
+                    <label for="words">Text</label>
+                    <textarea class="form-control" maxlength="10000" id="words" name="words" rows="10" required></textarea>
+                </div>
 
-   				<button type="submit" id="submit" name="submit" class="btn btn-default">Submit</button>
-   			</form>							<!-- Submit form END-->
-						
+                <button type="submit" id="submit" name="submit" class="btn btn-default">Submit</button>
+            </form>                         <!-- Submit form END-->
+                        
 
-   		</div> <!-- end main -->
+        </div> <!-- end main -->
 
-   		<div id="sidebar" class="four columns">
+        <div id="sidebar" class="four columns">
 
-   			<div class="widget widget_search">
+            <div class="widget widget_search">
                   <h3>Search</h3> 
                   <form action="#">
 
@@ -140,30 +121,30 @@ if (isset($_POST['submit'])) {
                   </form>
                </div>
 
-   			<div class="widget widget_categories group">
-   				<h3>Categories.</h3> 
-   				<ul>
-						<li><a href="#" title="">Wordpress</a> (2)</li>
-						<li><a href="#" title="">Ghost</a> (14)</li>
-						<li><a href="#" title="">Joomla</a> (5)</li>
-						<li><a href="#" title="">Drupal</a> (3)</li>
-						<li><a href="#" title="">Magento</a> (2)</li>
-						<li><a href="#" title="">Uncategorized</a> (9)</li>						
-					</ul>
-				</div>
+            <div class="widget widget_categories group">
+                <h3>Categories.</h3> 
+                <ul>
+                        <li><a href="#" title="">Wordpress</a> (2)</li>
+                        <li><a href="#" title="">Ghost</a> (14)</li>
+                        <li><a href="#" title="">Joomla</a> (5)</li>
+                        <li><a href="#" title="">Drupal</a> (3)</li>
+                        <li><a href="#" title="">Magento</a> (2)</li>
+                        <li><a href="#" title="">Uncategorized</a> (9)</li>                     
+                    </ul>
+                </div>
 
-				<div class="widget widget_text group">
-					<h3>Widget Text.</h3>
+                <div class="widget widget_text group">
+                    <h3>Widget Text.</h3>
 
-   				<p>Lorem ipsum Ullamco commodo laboris sit dolore commodo aliquip incididunt fugiat esse dolor aute fugiat minim eiusmod do velit labore fugiat officia ad sit culpa labore in consectetur sint cillum sint consectetur voluptate adipisicing Duis irure magna ut sit amet reprehenderit.</p>
+                <p>Lorem ipsum Ullamco commodo laboris sit dolore commodo aliquip incididunt fugiat esse dolor aute fugiat minim eiusmod do velit labore fugiat officia ad sit culpa labore in consectetur sint cillum sint consectetur voluptate adipisicing Duis irure magna ut sit amet reprehenderit.</p>
 
-   			</div>
+            </div>
 
-   			<div class="widget widget_tags">
+            <div class="widget widget_tags">
                <h3>Post Tags.</h3>
 
                <div class="tagcloud group">
-                	<a href="#">Corporate</a>
+                    <a href="#">Corporate</a>
                   <a href="#">Onepage</a>
                   <a href="#">Agency</a>
                   <a href="#">Multipurpose</a>
@@ -184,10 +165,10 @@ if (isset($_POST['submit'])) {
                </ul>
                   
             </div>
-   			
-   		</div> <!-- end sidebar -->
+            
+        </div> <!-- end sidebar -->
 
-   	</div> <!-- end row -->
+    </div> <!-- end row -->
 
    </div> <!-- end content-wrap -->
    
@@ -198,8 +179,8 @@ if (isset($_POST['submit'])) {
 
       <div class="row"> 
 
-      	<div class="twelve columns">	
-				<ul class="social-links">
+        <div class="twelve columns">    
+                <ul class="social-links">
                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>               
@@ -207,9 +188,9 @@ if (isset($_POST['submit'])) {
                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
                <li><a href="#"><i class="fa fa-flickr"></i></a></li>               
                <li><a href="#"><i class="fa fa-skype"></i></a></li>
-            </ul>			
-      	</div>
-      	
+            </ul>           
+        </div>
+        
          <div class="six columns info">
 
             <h3>About Keep It Simple</h3> 
@@ -268,6 +249,45 @@ if (isset($_POST['submit'])) {
    <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
    <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>  
    <script src="js/main.js"></script>
+   
+   <script>
+    $("#theForm").submit(function(){
+      var w = $("#words").val();
+
+      $.ajax({
+        type: "GET",
+        url: "https://gateway.watsonplatform.net/natural-language-understanding/api/v1/analyze?version=2017-02-27",
+        dataType: 'json',
+        async: false,
+        username: "0283cb2f-c798-4403-9ad6-f5a829e90107",
+        password: "1DF15bZZfwng",
+        data: {
+          "text": w,
+          "features": {
+            "entities": {
+            "emotion": true,
+            "sentiment": true,
+            "limit": 2
+          },
+          "keywords": {
+            "emotion": true,
+            "sentiment": true,
+            "limit": 2
+          } 
+        }
+      } 
+    }).done(
+
+    function(data) {
+      console.log(data);
+    }
+
+    );
+
+  });
+
+   
+   </script>
 
 </body>
 
